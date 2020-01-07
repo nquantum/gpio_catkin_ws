@@ -6,6 +6,8 @@ def callback(data):
     rospy.loginfo("data is: %s", data.data)
     if data.data == 'red':
         rospy.loginfo("yes: RED")
+        rate = rospy.Rate(1)
+        rate.sleep()
     elif data.data == 'yellow':
         rospy.loginfo("yes: YELLOW")
     elif data.data == 'green':
@@ -16,6 +18,7 @@ def callback(data):
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber("input", String, callback)
+    #rate = rospy.Rate(10)
     rospy.spin()
 
 if __name__ == '__main__':
