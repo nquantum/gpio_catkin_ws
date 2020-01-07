@@ -17,7 +17,7 @@ def callback(data):
     elif data.data == "ngreen":
         rospy.loginfo("no: GREEN")
     else:
-        rospy.loginfo("no: %s", data.data)
+        rospy.loginfo("no: NOTHING", data.data)
 
 def listener():
     rospy.init_node('listener', anonymous=True)
