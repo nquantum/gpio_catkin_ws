@@ -8,7 +8,7 @@ i = ""
 def on_press(key):
     #try:
         print("press key is: " + key.char)
-        pub.publish("pressed")
+    #    pub.publish("pressed")
     #except AttributeError:
     #    pass
     #if key.char == 'a':
@@ -33,24 +33,27 @@ def on_release(key):
     #if key == keyboard.Key.esc:
     # Stop listener
     #    return False
-    try:
-        print(key.char)
-        i = key.char
-    except AttributeError:
-        pass
+    #try:
+        print("release key is: " + key.char)
+    #    i = key.char
+    #except AttributeError:
+    #    pass
 
 def talker():
     pub = rospy.Publisher('chatter', String, queue_size=10)
     rospy.init_node('driver', anonymous=True)
     rate = rospy.Rate(10)
-
+    
+    # begin scankey program
     rospy.loginfo('Control LED by ASD key.')
 
+    # check event
 #    with keyboard.Listener(
 #            on_press=on_press,
 #            on_release=on_release) as listener:
 #        listener.join()
 
+    # non-blocking
     listener = keyboard.Listener(
         on_press=on_press,
         on_release=on_release)
