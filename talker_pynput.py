@@ -6,11 +6,11 @@ from pynput import keyboard
 i = ""
 
 def on_press(key):
-    try:
-        print(key.char)
-        i = key.char
-    except AttributeError:
-        pass
+    #try:
+        print("press key is: " + key.char)
+        pub.publish("pressed")
+    #except AttributeError:
+    #    pass
     #if key.char == 'a':
     #    rospy.loginfo('RED')
     #    pub.publish('red')
@@ -57,8 +57,8 @@ def talker():
     listener.start()
 
     while not rospy.is_shutdown():
-        rospy.loginfo(i)
-        pub.publish(i)
+        #rospy.loginfo(i)
+        #pub.publish(i)
         rate.sleep()
 
 if __name__ == '__main__':
