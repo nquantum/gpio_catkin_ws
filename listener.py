@@ -3,7 +3,7 @@ import rospy
 from std_msgs.msg import String
 
 def callback(data):
-    #rospy.loginfo("call back")
+    #rospy.loginfo("in call back")
     #rospy.loginfo("data is: %s", data.data)
     if data.data == "red":
         rospy.loginfo("yes: RED")
@@ -18,11 +18,12 @@ def callback(data):
     elif data.data == "no-green":
         rospy.loginfo("no: GREEN")
     else:
-        rospy.loginfo("no: NOTHING")
+        rospy.loginfo("nothing: NOT MATCH")
 
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber("chatter", String, callback)
+    rospy.loginfo("start listen through /chatter")
     rospy.spin()
 
 if __name__ == '__main__':
