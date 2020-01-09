@@ -3,16 +3,6 @@ import rospy
 from std_msgs.msg import String
 from pynput import keyboard
 
-#def on_press(key):
-#    print("press key is: " + key.char)
-#    rospy.loginfo("press key is: " + key.char)
-#    pub.publish("pressed")
-    
-#def on_release(key):
-#    print("release key is: " + key.char)
-#    rospy.loginfo("release key is: " + key.char)
-#    pub.publish("released")
-
 def talker():
     def on_press(key):
         rospy.loginfo("press key is: " + key.char)
@@ -36,7 +26,6 @@ def talker():
 
     pub = rospy.Publisher('chatter', String, queue_size=10)
     rospy.init_node('driver', anonymous=True)
-    rate = rospy.Rate(10)
     
     # begin scankey program
     rospy.loginfo('Control LED by ASD key.')
@@ -48,9 +37,7 @@ def talker():
         on_release=on_release)
     listener.start()
 
-    #rospy.spin()
-    while not rospy.is_shutdown():
-        rate.sleep()
+    rospy.spin()
 
 if __name__ == '__main__':
     talker()
