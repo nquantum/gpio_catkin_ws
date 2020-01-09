@@ -3,46 +3,41 @@ import rospy
 from std_msgs.msg import String
 from pynput import keyboard
 
-def on_press(key):
-    try:
-        print(key.char)
-        pub.publish(key.char)
-    except AttributeError:
-        pass
-    #if key.char == 'a':
-    #    rospy.loginfo('RED')
-    #    pub.publish('red')
-    #elif key.char == 's':
-    #    rospy.loginfo('YELLOW')
-    #    pub.publish('yellow')
-    #elif key.char == 'd':
-    #    rospy.loginfo('GREEN')
-    #    pub.publish('green')
-    #else: def on_release(key):
-    print('{0} released'.format(
-        key))
-    if key == keyboard.Key.esc:
-        # Stop listener
-        return False
-    #    rospy.loginfo('none')
-    #time.sleep(1)
-
-def on_release(key):
-    if key == keyboard.Key.esc:
-        # Stop listener
-        return False
-
 def talker():
+    def on_press(key):
+        rospy.loginfo("press key is: " + key.char)
+        #pub.publish("pressed: " + key.char)
+        if key.char == 'a':
+            pub.publish('red')
+        elif key.char == 's':
+            pub.publish('yellow')
+        elif key.char == 'd':
+            pub.publish('green')        
+
+    def on_release(key):
+        rospy.loginfo("release key is: " + key.char)
+        #pub.publish("released: " + key.char)
+        if key.char == 'a':
+            pub.publish('no-red')
+        elif key.char == 's':
+            pub.publish('no-yellow')
+        elif key.char == 'd':
+            pub.publish('no-green')
+
     pub = rospy.Publisher('chatter', String, queue_size=10)
     rospy.init_node('driver', anonymous=True)
-    rate = rospy.Rate(10)
-
+    
+    # begin scankey program
     rospy.loginfo('Control LED by ASD key.')
+    pub.publish("start")
 
-    with keyboard.Listener(
-            on_press=on_press,
-            on_release=on_release) as listener:
-        listener.join()
+    # non-blocking
+    listener = keyboard.Listener(
+        on_press=on_press,
+        on_release=on_release)
+    listener.start()
+
+    rospy.spin()
 
 if __name__ == '__main__':
     talker()
