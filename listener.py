@@ -3,21 +3,22 @@ import rospy
 from std_msgs.msg import String
 
 def callback(data):
-    rospy.loginfo("data is: %s", data.data)
+    #rospy.loginfo("call back")
+    #rospy.loginfo("data is: %s", data.data)
     if data.data == "red":
         rospy.loginfo("yes: RED")
-    elif data.data == "nred":
+    elif data.data == "no-red":
         rospy.loginfo("no: RED")
     elif data.data == "yellow":
         rospy.loginfo("yes: YELLOW")
-    elif data.data == "nyellow":
+    elif data.data == "no-yellow":
         rospy.loginfo("no: YELLOW")
     elif data.data == "green":
         rospy.loginfo("yes: GREEN")
-    elif data.data == "ngreen":
+    elif data.data == "no-green":
         rospy.loginfo("no: GREEN")
     else:
-        rospy.loginfo("no: NOTHING", data.data)
+        rospy.loginfo("no: NOTHING")
 
 def listener():
     rospy.init_node('listener', anonymous=True)
