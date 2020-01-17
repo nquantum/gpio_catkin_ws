@@ -5,7 +5,7 @@ from pynput import keyboard
 
 def talker():
     def on_press(key):
-        rospy.loginfo("press key is: " + key.char)
+#        rospy.loginfo("press key is: " + key.char)
         #pub.publish("pressed: " + key.char)
         if key.char == 'a':
             pub.publish('red')
@@ -15,7 +15,7 @@ def talker():
             pub.publish('green')        
 
     def on_release(key):
-        rospy.loginfo("release key is: " + key.char)
+#        rospy.loginfo("release key is: " + key.char)
         #pub.publish("released: " + key.char)
         if key.char == 'a':
             pub.publish('no-red')
